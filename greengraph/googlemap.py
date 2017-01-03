@@ -1,9 +1,10 @@
 import numpy as np
 import geopy
-from StringIO import StringIO
+from io import StringIO
 from matplotlib import image as img
+import requests
 
-class Map(object):
+class GoogleMap(object):
 	"""Class that stores a PNG image then calculates the amount of green"""
 	def __init__(self, lat, long, satellite=True,
 					zoom=10, size=(400,400), sensor=False):
@@ -41,4 +42,5 @@ class Map(object):
 		buffer = StringIO()
 		result = img.imsave(buffer, out, format='png')
 		return buffer.getvalue()
+
 

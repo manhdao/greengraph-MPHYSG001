@@ -1,9 +1,9 @@
 import numpy as np
 import geopy
 
-from greengraph.googlemap import GoogleMap as GMap
+from greengraph.googlemap import GoogleMap
 
-class Greengraph(object):
+class GreenGraph(object):
 	def __init__(self, start, end):
 		"""Initialise greengraph with 'start' and 'end' locations """
 		self.start=start
@@ -22,7 +22,7 @@ class Greengraph(object):
 
 	def green_between(self, steps):
 		"""Return the amount of green in each of 'steps'"""
-		return [GMap(*location).count_green()
+		return [GoogleMap(*location).count_green()
 					for location in self.location_sequence(
 							self.geolocate(self.start),
 							self.geolocate(self.end), steps)]

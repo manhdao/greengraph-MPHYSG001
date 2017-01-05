@@ -15,13 +15,12 @@ class GreenGraph(object):
 
 	def geolocate(self, place):
 		"""Return the geolocation of a given place"""
-		n = self.geocoder.geocode(place,exactly_one=False)
+		n = self.geocoder.geocode(place, exactly_one=False)
 
 		if n:
 			return n[0][1]
 		else:
 			raise NameError("This place is not recognized by Google Map. Please check if the name is correct")
-
 
 	def location_sequence(self, start, end, steps):
 		"""Break distance between 'start' and 'end' into 'steps'"""

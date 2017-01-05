@@ -21,7 +21,9 @@ class GoogleMap(object):
 		if satellite:
 			params["maptype"]="satellite"
 
-		self.image = requests.get(base, params=params).content
+		self.url = requests.get(base, params=params)
+		# Build url from lat and long	
+		self.image = url.content
 		# Fetch our PNG image data
 		self.pixels= img.imread(BytesIO(self.image))
 		# Parse our PNG image as a numpy array

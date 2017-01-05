@@ -28,6 +28,9 @@ class GreenGraph(object):
 		if steps <= 0:
 			raise ValueError("Number of steps must be positive")
 
+		if type(steps) != int:
+			raise TypeError("Number of steps must be integer")
+
 		lats = np.linspace(start[0], end[0], steps)
 		longs = np.linspace(start[1],end[1], steps)
 		return np.vstack([lats, longs]).transpose()

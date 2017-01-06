@@ -61,7 +61,10 @@ def test_build_googleapi_params():
 
     with patch.object(requests,'get') as mock_get:
     	mock_get.return_value = mock_response = MagicMock()
-    	mock_response.content = b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01\x01\x03\x00\x00\x00%\xdbV\xca\x00\x00\x00\x06PLTE<T<\xff\xff\xff\xa1\x0fv\x19\x00\x00\x00\x01bKGD\x01\xff\x02-\xde\x00\x00\x00\nIDAT\x08\xd7c`\x00\x00\x00\x02\x00\x01\xe2!\xbc3\x00\x00\x00\x00IEND\xaeB`\x82'
+    	mock_response.content = b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00'\
+    							b'\x00\x00\x01\x01\x03\x00\x00\x00%\xdbV\xca\x00\x00\x00\x06PLTE<T<'\
+    							b'\xff\xff\xff\xa1\x0fv\x19\x00\x00\x00\x01bKGD\x01\xff\x02-\xde\x00'\
+    							b'\x00\x00\nIDAT\x08\xd7c`\x00\x00\x00\x02\x00\x01\xe2!\xbc3\x00\x00\x00\x00IEND\xaeB`\x82'
     	default_map = GoogleMap(51.0, 0.4)
 
     	mock_get.assert_called_with(
@@ -71,7 +74,8 @@ def test_build_googleapi_params():
             'zoom':10,
             'size':'400x400',
             'center':'51.0,0.4',
-            'style':'feature:all|element:labels|visibility:off'
+            'style':'feature:all|element:labels|visibility:off',
+            'maptype':'satellite'
         		}
     		)
 

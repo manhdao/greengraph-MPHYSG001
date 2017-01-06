@@ -28,14 +28,14 @@ class GoogleMap(object):
 		self.pixels = img.imread(BytesIO(self.image))
 	
 	@staticmethod
-	def green(pixels, threshold):
+	def green(pixels, threshold = 1.1):
 		""" Use NumPy to build an element-by-element logical array """
 
 		pixels = np.array(pixels)
 
-		if pixels.shape[2] != 3 or pixels.shape[0] != pixels.shape[0]:
-			raise ShapeError('The array must be of shape (n,n,3)')
-			
+		if (pixels.shape[2] != 3) or (pixels.shape[0] != pixels.shape[1]) or (len(pixels.shape) != 3):
+			raise IndexError('The array must be of shape (n,n,3)')
+
 		greener_than_red = pixels[:,:,1] > threshold * pixels[:,:,0]
 		greener_than_blue = pixels[:,:,1] > threshold * pixels[:,:,2]
 		green = np.logical_and(greener_than_red, greener_than_blue)

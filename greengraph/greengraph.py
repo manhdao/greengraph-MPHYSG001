@@ -6,13 +6,15 @@ from greengraph.googlemap import GoogleMap
 class GreenGraph(object):
 	def __init__(self, start, end):
 		"""Initialise greengraph with 'start' and 'end' locations """
-		self.geocoder=geopy.geocoders.GoogleV3(domain="maps.google.co.uk")
-		self.start=start
-		self.end=end	
+		if self.geolocate(start):
+			self.start=start
+		if self.geolocate(end):
+			self.end=end	
 
-	def geolocate(self, place):
+	@staticmethod
+	def geolocate(place):
 		"""Return the geolocation of a given place"""
-		n = self.geocoder.geocode(place, exactly_one=False)
+		n = geopy.geocoders.GoogleV3(domain="maps.google.co.uk").geocode(place, exactly_one=False)
 
 		if n:
 			return n[0][1]

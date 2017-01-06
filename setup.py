@@ -7,7 +7,7 @@ setup(
     author_email = "ducmanhdao92@gmail.com",
     description = ("A demonstration of how to generate a graph of the proportion of green pixels "
     										"in a series of satellite images between two points"),
-    long_description=read('README.md'),
+    long_description = open('README.md', 'r').read(),
     license = "MIT",
     packages = find_packages(exclude=['*test']),
     install_requires = ['argparse','numpy','geopy','stringIO','matplotlib']

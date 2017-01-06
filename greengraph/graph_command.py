@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-from greengraph import GreenGraph
-from googlemap import GoogleMap
+from .greengraph import GreenGraph
+from .googlemap import GoogleMap
 from argparse import ArgumentParser
 import IPython
 
@@ -20,6 +20,5 @@ if __name__ == "__main__":
 	if args.greenbetween:
 		print(my_data.green_between(args.steps))
 	else:
-
-
-
+		for location in GreenGraph.location_sequence(GreenGraph.geolocate(args.start),GreenGraph.geolocate(args.end), args.steps):
+			IPython.core.display.Image(GoogleMap(*location).image)

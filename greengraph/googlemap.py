@@ -27,19 +27,26 @@ class GoogleMap(object):
 		# Parse our PNG image as a numpy array
 		self.pixels = img.imread(BytesIO(self.image))
 	
-	def green(self, threshold):
-		# Use NumPy to build an element-by-element logical array
-		greener_than_red = self.pixels[:,:,1] > threshold* self.pixels[:,:,0]
-		greener_than_blue = self.pixels[:,:,1] > threshold*self.pixels[:,:,2]
+	@staticmethod
+	def green(pixels, threshold):
+		""" Use NumPy to build an element-by-element logical array """
+
+		pixels = np.array(pixels)
+
+		if pixels.shape[2] != 3 or pixels.shape[0] != pixels.shape[0]:
+			raise ShapeError('The array must be of shape (n,n,3)')
+			
+		greener_than_red = pixels[:,:,1] > threshold * pixels[:,:,0]
+		greener_than_blue = pixels[:,:,1] > threshold * pixels[:,:,2]
 		green = np.logical_and(greener_than_red, greener_than_blue)
 		return green
 
 	def count_green(self, threshold = 1.1):
-		return np.sum(self.green(threshold))
+		return np.sum(self.green(self.pixels, threshold))
 
-	def show_green(data, threshold = 1.1):
+	def show_green(self, threshold = 1.1):
 		green = self.green(threshold)
-		out = green[:,:,np.newaxis]*array([0,1,0])[np.newaxis,np.newaxis,:]
+		out = green[:,:,np.newaxis] * np.array([0,1,0])[np.newaxis,np.newaxis,:]
 		buffer = BytesIO()
 		result = img.imsave(buffer, out, format='png')
 		return buffer.getvalue()

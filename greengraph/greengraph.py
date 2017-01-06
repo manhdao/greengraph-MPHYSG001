@@ -7,11 +7,8 @@ class GreenGraph(object):
 	def __init__(self, start, end):
 		"""Initialise greengraph with 'start' and 'end' locations """
 		self.geocoder=geopy.geocoders.GoogleV3(domain="maps.google.co.uk")
-
-		if self.geolocate(start):
-			self.start=start
-		if self.geolocate(end):
-			self.end=end	
+		self.start=start
+		self.end=end	
 
 	def geolocate(self, place):
 		"""Return the geolocation of a given place"""
@@ -22,7 +19,8 @@ class GreenGraph(object):
 		else:
 			raise NameError("This place is not recognized by Google Map. Please check if the name is correct")
 
-	def location_sequence(self, start, end, steps):
+	@staticmethod
+	def location_sequence(start, end, steps):
 		"""Break distance between 'start' and 'end' into 'steps'"""
 		if steps <= 0:
 			raise ValueError("Number of steps must be positive")

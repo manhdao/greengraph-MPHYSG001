@@ -1,5 +1,5 @@
-from greengraph.greengraph import GreenGraph
-from greengraph.googlemap import GoogleMap
+from greengraph import GreenGraph
+from googlemap import GoogleMap
 from nose.tools import assert_equal, assert_almost_equal, assert_true, assert_raises
 from unittest.mock import MagicMock, patch
 
@@ -14,6 +14,7 @@ def test_input_correct():
 
 	with assert_raises(ValueError) as exception:
 		GreenGraph('new york', 'chicago').green_between(-20)
+	
 
 """def test_geocode_lat_long_limit():
 
@@ -33,9 +34,9 @@ def test_build_googleapi_params():
     import requests
 
     with patch.object(requests,'get') as mock_get:
-        default_map = GoogleMap(51.0, 0.0).pixels
+    	default_map = GoogleMap(51.0, 0.0).pixels
 
-        mock_get.assert_called_with(
+    	mock_get.assert_called_with(
         "http://maps.googleapis.com/maps/api/staticmap?",
         params={
             'sensor':'false',

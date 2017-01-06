@@ -61,7 +61,7 @@ def test_build_googleapi_params():
 
     with patch.object(requests,'get') as mock_get:
     	mock_get.return_value = mock_response = MagicMock()
-    	mock_response.content = b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDRx82'
+    	mock_response.content = b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x82'
     	default_map = GoogleMap(51.0, 0.4)
 
     	mock_get.assert_called_with(

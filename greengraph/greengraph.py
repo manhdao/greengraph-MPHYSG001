@@ -1,7 +1,7 @@
 import numpy as np
 import geopy
 
-from greengraph.googlemap import GoogleMap
+from googlemap import GoogleMap
 
 class GreenGraph(object):
 	def __init__(self, start, end):

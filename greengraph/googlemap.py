@@ -5,7 +5,7 @@ from matplotlib import image as img
 import requests
 
 class GoogleMap(object):
-	"""Class that stores a PNG image then calculates the amount of green"""
+	"""Class that stores a PNG image from lat and long"""
 	def __init__(self, lat, long, satellite=True,
 					zoom=10, size=(400,400), sensor=False):
 		"""Define the map parameters"""
@@ -21,10 +21,10 @@ class GoogleMap(object):
 		if satellite:
 			params["maptype"]="satellite"
 
-		# Fetch our PNG image data
+		""" Fetch our PNG image data """
 		self.image = requests.get(base, params=params).content
 		
-		# Parse our PNG image as a numpy array
+		""" Parse our PNG image as a numpy array """
 		self.pixels = img.imread(BytesIO(self.image))
 	
 	@staticmethod

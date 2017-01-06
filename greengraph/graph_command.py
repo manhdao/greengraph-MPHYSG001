@@ -2,7 +2,8 @@
 from .greengraph import GreenGraph
 from .googlemap import GoogleMap
 from argparse import ArgumentParser
-import IPython
+from IPython.display import Image
+from IPython.display import display
 
 if __name__ == "__main__":
 
@@ -21,4 +22,4 @@ if __name__ == "__main__":
 		print(my_data.green_between(args.steps))
 	else:
 		for location in GreenGraph.location_sequence(GreenGraph.geolocate(args.start),GreenGraph.geolocate(args.end), args.steps):
-			IPython.core.display.Image(GoogleMap(*location).image)
+			display(Image(GoogleMap(*location).image))

@@ -7,13 +7,20 @@ import numpy as np
 def test_input_correct():
 	""" Check incorrect input do fail """
 	with assert_raises(NameError) as exception:
-		GreenGraph('a', 'cchicago')
+		GreenGraph('new york', 'cchicago')
 
-	with assert_raises(TypeError) as exception:
-		GreenGraph('a', 'b').green_between(5.2)
+	with patch('geopy.geocoders.GoogleV3.geocode') as mock_googleV3:
+		ctpMocks = [MagicMock(), MagicMock()]
+		ctpMocks[0].geolocate.return_value = (52.0, 32.1)
+		ctpMocks[1].geolocate.return_value = (55.7, 3.9)
+		mock_googleV3.return_value = ctpMocks
+		my_data = GreenGraph('new york', 'chicago')
 
-	with assert_raises(ValueError) as exception:
-		GreenGraph('a', 'b').green_between(-20)
+		with assert_raises(TypeError) as exception:
+			my_data.green_between(5.2)
+
+		with assert_raises(ValueError) as exception:
+			my_data.green_between(-20)
 	
 def test_geocode_lat_long_limit():
 	""" Check lat and long are within limit """
@@ -56,7 +63,7 @@ def test_count_green_result():
 
 
 def test_build_googleapi_params():
-    # Check correct params are used
+    """ Check correct params are used """
     import requests
 
     with patch.object(requests,'get') as mock_get:
